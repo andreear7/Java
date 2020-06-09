@@ -1,0 +1,104 @@
+
+<style>
+    table {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td,  th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    tr:nth-child(even){background-color: #f2f2f2;}
+
+    tr:hover {background-color: #ddd;}
+
+    th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #33adff;
+        color: white;
+    }
+    div.main {
+        border-radius: 5px;
+        margin-top:50px;
+        margin-left:250px;
+        margin-right:250px;
+        margin-bottom:100px;
+        position:absolute;
+        background-color: #f2f2f2;
+        padding: 20px;
+    }
+    div{
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+
+    }
+    .votat{
+        background-color:red;
+        width:200px;
+        padding:10px;
+    }
+</style>
+
+
+<div>
+    <a th:href="@{/home/{id} (id=${user.id}) }"><span style="font-size:22px;">Buna,</span><span th:text="${user.nume}" style="font-size:22px;"></span></a>
+
+    <p><button><a th:href="@{/logout}">Deconecteaza-te</a></button></p>
+    <form action="#" th:action="@{/delete/{id} (id=${user.id}) }"  method="post" >
+        <input type="hidden" name="_method" value="post" />
+        <button type="submit" id="submitButton"> Sterge-ti contul</button>
+    </form>
+    <p><button><a th:href="@{/comments/addcomment/{id} (id=${user.id})}">Lasa un comentariu</a></button></p>
+</div>
+
+<div class="main" th:switch="${songs}">
+    <h2 th:case="null">Inca nu exista melodii</h2>
+    <div  th:case="*">
+        <h2>Melodii</h2>
+        <p class="votat">Ai mai votat aceasta melodie!</p>
+        <table>
+            <thead>
+            <tr>
+                <th>Nume</th>
+                <th>Autor</th>
+                <th>Descriere</th>
+                <th>Link</th>
+                <th>Gen</th>
+                <th>Voturi</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="song : ${songs}">
+                <td th:text="${song.numeMelodie}"></td>
+                <td th:text="${song.autor}"></td>
+                <td th:text="${song.descriere}"></td>
+                <td th:text="${song.linkMelodie}"></td>
+                <td th:text="${song.gen}"></td>
+                <td th:text="${song.voturi}"></td>
+
+                <td>
+                    <form method="post" th:action="@{/songs/vote/{idUser}/{id} (id=${song.id} , idUser=${user.id})}">
+                        <button type="submit" name="submit" value="value" class="link-button">Voteaza</button>
+                    </form>
+                </td>
+                <td th:if="${song.idUtilizator == user.id }">
+                    <form method="post" th:action="@{/songs/delete/{idUser}/{id} (id=${song.id} , idUser=${user.id})} ">
+                        <button type="submit" name="submit" value="value" class="link-button">Sterge</button>
+                    </form></td>
+
+
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a th:href="@{/songs/addsong/{id} (id=${user.id})}">Adauga o melodie noua</a></p>
+    <p><a th:href="@{/songs/top/{id} (id=${user.id})}">Vezi topul</a></p>
+</div>

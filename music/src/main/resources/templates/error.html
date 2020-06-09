@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        table {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,  th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        tr:nth-child(even){background-color: #ff9980;}
+        tr:nth-child(odd){background-color:#ff704d;}
+
+        tr:hover {background-color: #ff471a;}
+
+        th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #33adff;
+            color: white;
+        }
+        div.main {
+            border-radius: 5px;
+            margin-top:100px;
+            margin-left:450px;
+            margin-right:250px;
+            margin-bottom:100px;
+            position:absolute;
+            background-color: #ff4d4d;
+            padding: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="main">
+    <h1>A intervenit o eroare!</h1>
+   <h2> Detalii:</h2>
+<table>
+    <tr>
+        <td>Date</td>
+        <td th:text="${timestamp}"/>
+    </tr>
+    <tr>
+        <td>Path</td>
+        <td th:text="${path}"/>
+    </tr>
+    <tr>
+        <td>Error</td>
+        <td th:text="${error}"/>
+    </tr>
+    <tr>
+        <td>Status</td>
+        <td th:text="${status}"/>
+    </tr>
+    <tr>
+        <td>Message</td>
+<!--        <td th:switch="${message}>-->
+         <td th:if="${message.contains('SQL')}">Eroare legata de baza de date!</td>
+        <td th:unless="${message.contains('SQL')}" th:text="${message}"/>
+    </tr>
+    <tr>
+        <td>Exception</td>
+        <td th:text="${exception}"/>
+    </tr>
+
+</table></div>
+</body>
+</html>

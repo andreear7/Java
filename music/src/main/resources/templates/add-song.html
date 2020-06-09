@@ -1,0 +1,77 @@
+
+<style>
+    input[type=text], select , input[type=password] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type=submit].main {
+        width: 100%;
+        background-color: #33adff;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    input[type=submit].main:hover {
+        background-color: #008ae6;
+    }
+
+    div.main {
+        border-radius: 5px;
+        margin-top:50px;
+        margin-left:300px;
+        margin-right:250px;
+        margin-bottom:100px;
+        position:absolute;
+        background-color: #f2f2f2;
+        padding: 20px;
+    }
+    div{
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+
+    }
+</style>
+
+<div>
+    <a th:href="@{/home/{id} (id=${user.id}) }"><span style="font-size:22px;">Buna,</span><span th:text="${user.nume}" style="font-size:22px;"></span></a>
+
+    <p><button><a th:href="@{/logout}">Deconecteaza-te</a></button></p>
+    <form action="#" th:action="@{/delete/{id} (id=${user.id}) }"  method="post" >
+        <input type="hidden" name="_method" value="post" />
+        <button type="submit" id="submitButton"> Sterge-ti contul</button>
+    </form>
+    <p><button><a th:href="@{/comments/addcomment/{id} (id=${user.id})}">Lasa un comentariu</a></button></p>
+</div>
+<div class="main">
+<form action="#" th:action="@{/songs/songadded/{idUser} (idUser=${user.id})}" th:object="${song}" method="post">
+
+    <label for="numeMelodie">Nume</label>
+    <input type="text" th:field="*{numeMelodie}" id="numeMelodie" placeholder="Nume">
+    <span th:if="${#fields.hasErrors('numeMelodie')}" th:errors="*{numeMelodie}"></span>
+    <label for="autor">Autor</label>
+    <input type="text" th:field="*{autor}" id="autor" placeholder="Autor">
+    <span th:if="${#fields.hasErrors('autor')}" th:errors="*{autor}"></span>
+    <label for="descriere">Descriere</label>
+    <input type="text" th:field="*{descriere}" id="descriere" placeholder="Descriere">
+    <label for="linkMelodie">Link</label>
+    <input type="text" th:field="*{linkMelodie}" id="linkMelodie" placeholder="Link">
+    <label for="gen">Gen</label>
+    <input type="text" th:field="*{gen}" id="gen" placeholder="Gen">
+    <input class= "main" type="submit" value="Adauga melodie">
+</form>
+    <form action="#" th:action="@{/songs/songaddedrandomly/{id} (id=${user.id}) }" method="post" >
+        <input type="hidden" name="_method" value="post" />
+        <button type="submit" id="submit"> Adauga o melodie aleatoare</button>
+    </form>
+</div>

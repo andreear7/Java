@@ -1,0 +1,51 @@
+
+<style>
+
+    input[type=text], input[type=password], select {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type=submit].main {
+        width: 100%;
+        background-color: #33adff;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    input[type=submit].main:hover {
+        background-color: #008ae6;
+    }
+
+    div {
+        border-radius: 5px;
+        margin-top:100px;
+        margin-bottom:100px;
+        margin-left:350px;
+        margin-right:250px;
+        position:absolute;
+        background-color: #f2f2f2;
+        padding: 20px;
+    }
+</style>
+<body>
+<div>
+<form action="#" th:action="@{/loginuser}" th:object="${user}" method="post">
+    <label for="nume">Nume</label>
+    <input type="text" th:field="*{nume}" id="nume" placeholder="Nume">
+    <span th:if="${#fields.hasErrors('nume')}" th:errors="*{nume}"></span>
+    <label for="parola">Parola</label>
+    <input type="password" th:field="*{parola}" id="parola" placeholder="Parola">
+    <span th:if="${#fields.hasErrors('parola')}" th:errors="*{parola}"></span>
+    <input class="main" type="submit" value="Conecteaza-te">
+    <p><a th:href="@{/signup}">Nu ai cont? Creeaza-ti</a></p>
+</form></div></body>
